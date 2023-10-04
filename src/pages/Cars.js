@@ -136,7 +136,7 @@ function Cars() {
                   <Card
                     bordered={false}
                     className="card-project"
-                    cover={<Image alt="slide" src={p.image} />}
+                    cover={<Image alt="slide" src={p.images[0]} />}
                   >
                     <h5>{p.name}</h5>
                     <p>{p.Model}</p>

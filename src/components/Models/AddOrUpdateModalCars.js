@@ -206,7 +206,6 @@ const AddOrUpdateModalCars = (props) => {
                         name="image"
                         rules={[
                           {
-                            required: true,
                             message: "Please input your images!",
                           },
                         ]}

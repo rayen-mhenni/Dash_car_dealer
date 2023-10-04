@@ -37,9 +37,12 @@ const AddOrUpdateModalCars = (props) => {
       form.setFieldsValue({
         ...props.record,
         images:
-          props.record?.images.length > 0 ? props.record?.images.length : [],
+          props.record?.images.length > 0 ? props.record?.images : [],
       });
     } else {
+      form.setFieldsValue({
+        images: [],
+      });
     }
   }, [form, props.record, props.visible]);
 
@@ -201,35 +204,41 @@ const AddOrUpdateModalCars = (props) => {
                   </Row>
                 ) : (
                   <Form.Item shouldUpdate noStyle>
-                    {({ getFieldValue }) => (
-                      <Form.Item name="image">
-                        <Upload
-                          name="slideimg"
-                          className="avatar-uploader projects-uploader"
-                          onChange={(val) =>
-                            handleChange(val, getFieldValue("images"))
-                          }
-                          listType="picture-card"
-                          fileList={getFieldValue("images")?.map((el, i) => ({
-                            uid: -i,
-                            name: "image.png",
-                            status: "done",
-                            url: el,
-                          }))}
-                          multiple
-                        >
-                          <Button
-                            icon={
-                              <VerticalAlignTopOutlined
-                                style={{ width: 20, color: "#000" }}
-                              />
+                    {({ getFieldValue }) => {
+                      return (
+                        <Form.Item name="image">
+                          <Upload
+                            name="slideimg"
+                            className="avatar-uploader projects-uploader"
+                            onChange={(val) =>
+                              handleChange(val, getFieldValue("images"))
                             }
+                            listType="picture-card"
+                            fileList={
+                              !isNil(getFieldValue("images"))
+                                ? getFieldValue("images")?.map((el, i) => ({
+                                    uid: -i,
+                                    name: "image.png",
+                                    status: "done",
+                                    url: el,
+                                  }))
+                                : []
+                            }
+                            multiple
                           >
-                            Upload Images
-                          </Button>
-                        </Upload>
-                      </Form.Item>
-                    )}
+                            <Button
+                              icon={
+                                <VerticalAlignTopOutlined
+                                  style={{ width: 20, color: "#000" }}
+                                />
+                              }
+                            >
+                              Upload Images
+                            </Button>
+                          </Upload>
+                        </Form.Item>
+                      );
+                    }}
                   </Form.Item>
                 )}
               </Col>

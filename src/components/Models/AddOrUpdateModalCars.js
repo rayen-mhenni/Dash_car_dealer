@@ -22,13 +22,13 @@ import TextArea from "antd/lib/input/TextArea";
 import getEnvValue, { getJSON } from "../../utils";
 const { Option } = Select;
 
-const AddOrUpdateModalArticle = (props) => {
+const AddOrUpdateModalCars = (props) => {
   const { visible, onCancel } = props;
   const [Loading, setLoading] = useState(false);
   const [imageURL, setImageURL] = useState(false);
-  const serverURL = 'https://www.PrimoCarthage.fr';
+  const serverURL = "https://www.PrimoCarthage.fr";
 
-  console.log('dsdsqdqsd', serverURL)
+  console.log("dsdsqdqsd", serverURL);
 
   const [form] = useForm();
 
@@ -162,12 +162,12 @@ const AddOrUpdateModalArticle = (props) => {
       <div className="site-card-border-less-wrapper">
         <Modal
           title={props.type === "EDIT" ? "UPDATE" : "CREATE"}
-          centered
           visible={visible}
           destroyOnClose
           onOk={() => {
             form.submit();
           }}
+          width={1000}
           onCancel={onCancel}
         >
           <Card
@@ -197,6 +197,7 @@ const AddOrUpdateModalArticle = (props) => {
                         showUploadList={false}
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
+                        multiple
                       >
                         {imageURL || props?.record?.image ? (
                           <img
@@ -220,44 +221,193 @@ const AddOrUpdateModalArticle = (props) => {
                 </Form.Item>
               </Col>
 
-              <Col span={24}>
+              <Col span={12}>
                 <Form.Item
-                  name="title"
+                  name="name"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your title!",
+                      message: "Please input your name!",
                     },
                   ]}
                 >
-                  <Input placeholder="title" type="title" />
+                  <Input placeholder="name" type="name" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Make"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Make!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Make" type="Make" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Model"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Model!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Model" type="Model" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Year"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Year!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Year" type="Year" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Mileage"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Mileage!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Mileage" type="Mileage" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Engine"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Engine!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Engine" type="Engine" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Cylinder"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Cylinder!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Cylinder" type="Cylinder" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Transmission"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Transmission!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Transmission" type="Transmission" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Bodytype"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Bodytype!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Bodytype" type="Bodytype" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="INTERIORCOLOR"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your INTERIORCOLOR!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="INTERIORCOLOR" type="INTERIORCOLOR" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="EXTERIORCOLOR"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your EXTERIORCOLOR!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="EXTERIORCOLOR" type="EXTERIORCOLOR" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Price"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Price!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Price" type="Price" />
                 </Form.Item>
               </Col>
 
               <Col span={24}>
                 <Form.Item
-                  name="content"
+                  name="description"
                   rules={[
                     {
                       required: true,
-                      message: "Please input your content!",
+                      message: "Please input your description!",
                     },
                   ]}
                 >
-                  <TextArea rows={13} placeholder="content" type="texte" />
+                  <TextArea rows={3} placeholder="description" type="texte" />
                 </Form.Item>
               </Col>
               <Col span={24}>
                 <Form.Item
-                  name="author"
+                  name="options"
                   rules={[
                     {
                       required: true,
-                      message: "Please input author!",
+                      message: "Please input options!",
                     },
                   ]}
                 >
-                  <Input placeholder="author" type="author" />
+                  <Select
+                    mode="tags"
+                    size="middle"
+                    placeholder="Please select"
+                    style={{ width: "100%" }}
+                    options={[]}
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -268,4 +418,4 @@ const AddOrUpdateModalArticle = (props) => {
   );
 };
 
-export default AddOrUpdateModalArticle;
+export default AddOrUpdateModalCars;

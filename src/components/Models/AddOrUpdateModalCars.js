@@ -202,14 +202,7 @@ const AddOrUpdateModalCars = (props) => {
                 ) : (
                   <Form.Item shouldUpdate noStyle>
                     {({ getFieldValue }) => (
-                      <Form.Item
-                        name="image"
-                        rules={[
-                          {
-                            message: "Please input your images!",
-                          },
-                        ]}
-                      >
+                      <Form.Item name="image">
                         <Upload
                           name="slideimg"
                           className="avatar-uploader projects-uploader"

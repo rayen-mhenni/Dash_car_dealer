@@ -64,7 +64,11 @@ function Home() {
 
   const [token, setToken] = useState(getJSON(localStorage.getItem("token")));
 
-  const [meeting, setMeeting] = useState(0);
+  const [financing, setFinancing] = useState([]);
+  const [car, setCar] = useState([]);
+  const [statistic, setStatistic] = useState({});
+
+
   const [simulation, setsimulation] = useState(0);
   const [contact, setcontact] = useState(0);
 
@@ -76,11 +80,10 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://www.PrimoCarthage.fr/api/socials", config)
+      .get("http://127.0.0.1:5000/api/financing", config)
       .then((response) => {
         if (response.data) {
-          setData(response.data[0]);
-          console.log("ooooooo", response.data);
+          setFinancing(response.data.reclamations);
           setisload(false);
         } else {
           notification.error({ message: "No Data Found" });
@@ -89,11 +92,10 @@ function Home() {
       });
 
     axios
-      .get("https://www.PrimoCarthage.fr/api/socials", config)
+      .get("http://127.0.0.1:5000/api/car", config)
       .then((response) => {
         if (response.data) {
-          setData(response.data[0]);
-          console.log("ooooooo", response.data);
+          setCar(response.data.car);
           setisload(false);
         } else {
           notification.error({ message: "No Data Found" });
@@ -102,73 +104,25 @@ function Home() {
       });
 
     axios
-      .get("https://www.PrimoCarthage.fr/api/stat/meeting", config)
+      .get("http://127.0.0.1:5000/api/statistic/" + "2023-10", config)
       .then((response) => {
         if (response.data) {
-          setMeeting(response.data);
-          console.log("ooooooo", response.data);
+          setStatistic(response.data.statistic);
           setisload(false);
         } else {
           //notification.error({ message: "No Data Found" });
           setisload(false);
         }
       });
-    axios
-      .get("https://www.PrimoCarthage.fr/api/stat/simul", config)
-      .then((response) => {
-        if (response.data) {
-          setsimulation(response.data);
-          console.log("ooooooo", response.data);
-          setisload(false);
-        } else {
-          // notification.error({ message: "No Data Found" });
-          setisload(false);
-        }
-      });
-    axios
-      .get("https://www.PrimoCarthage.fr/api/stat/contact", config)
-      .then((response) => {
-        if (response.data) {
-          setcontact(response.data);
-          console.log("ooooooo", response.data);
-          setisload(false);
-        } else {
-          // notification.error({ message: "No Data Found" });
-          setisload(false);
-        }
-      });
 
-    axios
-      .get("https://www.PrimoCarthage.fr/api/visite/visite", config)
-      .then((response) => {
-        if (response.data) {
-          setvisite(response.data[0]);
-        } else {
-          // notification.error({ message: "No Data Found" });
-        }
-      });
+
+
   }, [refetech]);
 
   const handrefetech = () => {
     setrefetech(!refetech);
   };
 
-  const handleDelete = async (id) => {
-    setisload(true);
-
-    await axios
-      .delete(`https://www.PrimoCarthage.fr/api/data/socials/${id}`, config)
-      .then(function (response) {
-        setisload(false);
-
-        handrefetech();
-      })
-      .catch(function (err) {
-        setisload(false);
-
-        console.log(err);
-      });
-  };
 
   const dollor = [
     <svg
@@ -259,25 +213,25 @@ function Home() {
   const count = [
     {
       today: "Today’s Visitors",
-      title: visite?.number ?? 0,
+      title: statistic?.visit ?? 0,
       icon: profile,
       bnb: "bnb2",
     },
     {
       today: "Total Financing",
-      title: contact,
+      title: financing.length,
       icon: profile,
       bnb: "bnb2",
     },
     {
       today: "Total Cars",
-      title: simulation,
+      title: car.length,
       icon: cart,
       bnb: "bnb2",
     },
     {
       today: "Total Researchs",
-      title: simulation,
+      title: statistic.TotalRes,
       icon: cart,
       bnb: "bnb2",
     },

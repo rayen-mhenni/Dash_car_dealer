@@ -11,8 +11,8 @@ import RestPassword from "./pages/RestPassword";
 
 import Contacts from "./pages/Contacts";
 
-import Article from "./pages/Article";
 import { getJSON } from "./utils";
+import Cars from "./pages/Cars";
 
 function App() {
   if (!localStorage.getItem("token") || !getJSON(localStorage.getItem("token")))
@@ -28,7 +28,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<Main />}>
-              <Route path="/article" element={<Article />} />
+              <Route path="/Cars" element={<Cars />} />
 
               <Route path="/contact" element={<Contacts />} />
 

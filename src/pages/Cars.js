@@ -36,31 +36,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getJSON } from "../utils";
 import { getEmailMeetConfirm } from "../utils";
-import AddOrUpdateModalArticle from "../components/Models/AddOrUpdateModalArticle";
+import AddOrUpdateModalCars from "../components/Models/AddOrUpdateModalCars";
 
 const { Title } = Typography;
 
-const formProps = {
-  name: "file",
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  headers: {
-    authorization: "authorization-text",
-  },
-  onChange(info) {
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
-function Article() {
-  const onChange = (e) => console.log(`radio checked:${e.target.value}`);
-
+function Cars() {
   const [data, setData] = useState([]);
   const [Loading, setLoading] = useState(false);
 
@@ -88,15 +68,17 @@ function Article() {
   };
 
   useEffect(() => {
-    axios.get("https://www.PrimoCarthage.fr/api/articles", config).then((response) => {
-      if (response.data) {
-        setData(response.data);
-        setisload(false);
-      } else {
-        notification.error({ message: "No Data Found" });
-        setisload(false);
-      }
-    });
+    axios
+      .get("https://www.PrimoCarthage.fr/api/Carss", config)
+      .then((response) => {
+        if (response.data) {
+          setData(response.data);
+          setisload(false);
+        } else {
+          notification.error({ message: "No Data Found" });
+          setisload(false);
+        }
+      });
   }, [refetech]);
 
   const handrefetech = () => {
@@ -106,7 +88,7 @@ function Article() {
   const handleDelete = async (id) => {
     setisload(true);
     await axios
-      .delete(`https://www.PrimoCarthage.fr/api/articles/delete/${id}`, config)
+      .delete(`https://www.PrimoCarthage.fr/api/Carss/delete/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);
@@ -117,25 +99,6 @@ function Article() {
       });
   };
 
-  const deletebtn = [
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      key={0}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 2C8.62123 2 8.27497 2.214 8.10557 2.55279L7.38197 4H4C3.44772 4 3 4.44772 3 5C3 5.55228 3.44772 6 4 6L4 16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V6C16.5523 6 17 5.55228 17 5C17 4.44772 16.5523 4 16 4H12.618L11.8944 2.55279C11.725 2.214 11.3788 2 11 2H9ZM7 8C7 7.44772 7.44772 7 8 7C8.55228 7 9 7.44772 9 8V14C9 14.5523 8.55228 15 8 15C7.44772 15 7 14.5523 7 14V8ZM12 7C11.4477 7 11 7.44772 11 8V14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14V8C13 7.44772 12.5523 7 12 7Z"
-        fill="#111827"
-        className="fill-danger"
-      ></path>
-    </svg>,
-  ];
-
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -144,7 +107,7 @@ function Article() {
             className="header-solid h-full"
             bordered={false}
             loading={isload}
-            title={[<h6 className="font-semibold m-0"> Articels List</h6>]}
+            title={[<h6 className="font-semibold m-0"> Cars List</h6>]}
             bodyStyle={{ paddingTop: "0" }}
             extra={
               <Tooltip title="Add">
@@ -219,7 +182,7 @@ function Article() {
                   }}
                   style={{ height: "100%", width: "100%" }}
                 >
-                  Add New Article
+                  Add New Cars
                 </Button>
               </Col>
             </Row>
@@ -227,7 +190,7 @@ function Article() {
         </Col>
       </Row>
 
-      <AddOrUpdateModalArticle
+      <AddOrUpdateModalCars
         visible={visible}
         record={action === "EDIT" ? record : {}}
         refetech={handrefetech}
@@ -238,4 +201,4 @@ function Article() {
   );
 }
 
-export default Article;
+export default Cars;

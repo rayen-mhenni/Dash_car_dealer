@@ -62,10 +62,11 @@ function Contacts() {
 
   useEffect(() => {
     axios
-      .get("https://www.PrimoCarthage.fr/api/contact", config)
+      .get("http://127.0.0.1:5000/api/financing", config)
       .then((response) => {
         if (response.data) {
-          setData(response.data);
+          console.log('ddddd', response)
+          setData(response.data.reclamations);
           setisload(false);
         } else {
           notification.error({ message: "No Data Found" });
@@ -82,11 +83,10 @@ function Contacts() {
     setisload(true);
 
     await axios
-      .delete(`https://www.PrimoCarthage.fr/api/contact/delete/${id}`, config)
+      .delete(`http://127.0.0.1:5000/api/financing/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);
-
       })
       .catch(function (err) {
         setisload(false);
@@ -126,7 +126,7 @@ function Contacts() {
             className="header-solid h-full"
             bordered={false}
             loading={isload}
-            title={[<h6 className="font-semibold m-0"> Contacts List</h6>]}
+            title={[<h6 className="font-semibold m-0"> Financing List</h6>]}
             bodyStyle={{ paddingTop: "0" }}
           >
 
@@ -135,35 +135,98 @@ function Contacts() {
                 <Col span={24} key={index}>
                   <Card className="card-billing-info" bordered="false">
                     <div className="col-info">
-                      <Descriptions title={"Message from " + i.name}>
-                        <Descriptions.Item label="Full Name" span={3}>
-                          {i.name}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Email Address" span={3}>
-                          {i.email}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Number" span={3}>
-                          {i.phone}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Gender" span={3}>
-                            {i.identity}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Message" span={3}>
-                          {i.message}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Date" span={3}>
-                          {moment(i.created_at).format("YYYY-MM-DD")}
-                        </Descriptions.Item>
-         
-                      </Descriptions>
+                      <Row>
+                        <Col md={6}>
+                          <Descriptions title={"PERSONAL INFORMATION " + i.Title}>
+                            <Descriptions.Item label="Full Name" span={3}>
+                              {i.Firstname} {i.Lastname}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Email Address" span={3}>
+                              {i.Email}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Number" span={3}>
+                              {i.Phone}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Date of birth" span={3}>
+                              {i.Dateofbirth}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="SIN" span={3}>
+                              {i.SIN}
+                            </Descriptions.Item>
+           
+
+                          </Descriptions>
+
+                        </Col>
+
+                        <Col md={6}>
+                          <Descriptions title={"CONTACT INFORMATION"}>
+                            <Descriptions.Item label="Current Address Duration" span={3}>
+                              {i.CurrentAddressDuration}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Street" span={3}>
+                              {i.Street}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="City" span={3}>
+                              {i.City}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Province" span={3}>
+                              {i.Province}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Postal Code" span={3}>
+                              {i.PostalCode}
+                            </Descriptions.Item>
+       
+                          </Descriptions>
+
+                        </Col>
+
+
+                        <Col md={6}>
+                          <Descriptions title={"CURRENT JOB"}>
+                            <Descriptions.Item label="Company" span={3}>
+                              {i.Company}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Position" span={3}>
+                              {i.Position}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Duration" span={3}>
+                              {i.Duration}
+                            </Descriptions.Item>
+                          </Descriptions>
+
+                        </Col>
+
+                        <Col md={6}>
+                          <Descriptions title={"FINANCIAL INFORMATION"}>
+                            <Descriptions.Item label="Monthly Income" span={3}>
+                              {i.MonthlyIncome}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Residential Status" span={3}>
+                              {i.ResidentialStatus}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Monthly Rent" span={3}>
+                              {i.MonthlyRent}
+                            </Descriptions.Item>
+
+                            <Descriptions.Item label="Date" span={3}>
+                              {moment(i.created_at).format("YYYY-MM-DD")}
+                            </Descriptions.Item>
+                          </Descriptions>
+
+                        </Col>
+
+
+                      </Row>
+
                     </div>
                     <div className="col-action">
                       <Button
                         type="link"
                         danger
-                        onClick={() => handleDelete(i.id)}
+                        onClick={() => handleDelete(i._id)}
                       >
-                        {deletebtn}DELETE
+                        {deletebtn} DELETE
                       </Button>
 
                       <Button
@@ -186,13 +249,13 @@ function Contacts() {
         </Col>
       </Row>
 
-        <SendMailToContactModel
-          visible={visible}
-          record={record}
-          refetech={handrefetech}
-          type={action}
-          onCancel={() => setVisible(false)}
-        />
+      <SendMailToContactModel
+        visible={visible}
+        record={record}
+        refetech={handrefetech}
+        type={action}
+        onCancel={() => setVisible(false)}
+      />
     </>
   );
 }

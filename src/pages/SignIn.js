@@ -80,29 +80,29 @@ const SignIn = () => {
   };
 
   const onFinish = async () => {
-    hist("/dashboard");
-
-    // await axios
-    //   .post("https://www.PrimoCarthage.fr/api/users", {
-    //     Email: email,
-    //     Password: password,
-    //   })
-    //   .then((response) => {
-    //     if (response.data.token) {
-    //       notification.success({ message: response?.data?.message });
-    //       localStorage.setItem(
-    //         "token",
-    //         JSON.stringify("Bearer " + response.data.token)
-    //       );
-    //       localStorage.setItem("user", JSON.stringify(response.data.user));
-    //       hist("/dashboard");
-    //     } else {
-    //       notification.error({ message: "no account with these credential" });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     notification.error({ message: "no account with these credential" });
-    //   });
+    await axios
+      .post("http://127.0.0.1:5000/api/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        if (response.data.token) {
+          notification.success({ message: "Welcom Admin" });
+          localStorage.setItem(
+            "token",
+            JSON.stringify("Bearer " + response.data.token)
+          );
+          localStorage.setItem("user", JSON.stringify(response.data.email));
+          hist("/dashboard");
+        } else {
+          notification.error({ message: "no account with these credential" });
+          hist("/sign-in");
+        }
+      })
+      .catch((err) => {
+        notification.error({ message: "no account with these credential" });
+        hist("/sign-in");
+      });
   };
 
   return (

@@ -25,30 +25,16 @@ const SendMailToContactModel = (props) => {
   const { visible, onCancel } = props;
 
   const [form] = useForm();
-  const [token, setToken] = useState(getJSON(localStorage.getItem("token")));
 
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
   const handleonfinish = async () => {
     const subject = form.getFieldValue("subject");
     const emailcontent = form.getFieldValue("email");
-    axios
-      .get(`https://www.PrimoCarthage.fr/api/emails/CONTACT`, config)
-      .then((response) => {
-        if (response.data) {
+
           let templateParams = {
             email: props.record.email,
-            html_temp: StringToTemplate(
-              {
-                subject: subject,
-                message: emailcontent,
-                name: "Mr or Mm " + props.record.name,
-              },
-              response.data.htmlsource
-            ),
+            subject: subject,
+            message: emailcontent,
+            name: "Mr or Mm " + props.record.name,
           };
 
           emailjs
@@ -67,15 +53,14 @@ const SendMailToContactModel = (props) => {
                 notification.error({ message: error.text });
               }
             );
-        }
-      });
+
   };
 
   return (
     <Form form={form} onFinish={handleonfinish} preserve={false}>
       <div className="site-card-border-less-wrapper">
         <Modal
-          title={"Send Email To " + props.record.name}
+          title={"Send Email To " + props.record.Firstname + " " + props.record.Lastname}
           centered
           visible={visible}
           destroyOnClose

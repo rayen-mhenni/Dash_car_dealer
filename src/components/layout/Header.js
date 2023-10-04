@@ -216,7 +216,7 @@ function Header({
             {toggler}
           </Button>
           <Text type="secondary" strong>
-            <span>{JSON.parse(localStorage.getItem("user"))?.name}</span>
+            <span>{JSON.parse(localStorage.getItem("user"))}</span>
           </Text>
           <Badge count={listnotif.length}>
             <Dropdown

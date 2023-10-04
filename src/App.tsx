@@ -12,10 +12,11 @@ import RestPassword from "./pages/RestPassword";
 import Contacts from "./pages/Contacts";
 
 import Article from "./pages/Article";
+import { getJSON } from "./utils";
 
 function App() {
-  // if (!localStorage.getItem("token") || !getJSON(localStorage.getItem("token")))
-  //   <Navigate to="/sign-in" />;
+  if (!localStorage.getItem("token") || !getJSON(localStorage.getItem("token")))
+    <Navigate to="/sign-in" />;
   return (
     <div className="App">
       <BrowserRouter>

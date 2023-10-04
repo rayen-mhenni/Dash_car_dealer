@@ -76,7 +76,7 @@ const AddOrUpdateModalCars = (props) => {
 
         var bodyFormData = new FormData();
 
-        bodyFormData.append("image", info.file.originFileObj);
+        bodyFormData.append("images", info.file.originFileObj);
         form.setFieldsValue({
           image: serverURL + "/images/" + info?.file.originFileObj.name,
         });
@@ -110,7 +110,7 @@ const AddOrUpdateModalCars = (props) => {
       console.log("oooooooo", values);
       await axios
         .put(
-          "https://www.PrimoCarthage.fr/api/articles/update/" + values.id,
+          "http://127.0.0.1:5000/api/car/edit/" + values.id,
           {
             author: values?.author,
             content: values.content,

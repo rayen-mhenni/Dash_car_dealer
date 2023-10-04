@@ -71,8 +71,8 @@ function Cars() {
     axios
       .get("http://127.0.0.1:5000/api/car", config)
       .then((response) => {
-        if (response.data) {
-          setData(response.data);
+        if (response.data.car) {
+          setData(response.data.car);
           setisload(false);
         } else {
           notification.error({ message: "No Data Found" });

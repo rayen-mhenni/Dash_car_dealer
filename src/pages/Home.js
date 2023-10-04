@@ -259,24 +259,24 @@ function Home() {
   const count = [
     {
       today: "Today’s Visitors",
-      title: visite?.number,
+      title: visite?.number ?? 0,
       icon: profile,
       bnb: "bnb2",
     },
     {
-      today: "Today’s Messages",
+      today: "Total Financing",
       title: contact,
       icon: profile,
       bnb: "bnb2",
     },
     {
-      today: "Today's Meeting",
-      title: meeting,
-      icon: heart,
-      bnb: "redtext",
+      today: "Total Cars",
+      title: simulation,
+      icon: cart,
+      bnb: "bnb2",
     },
     {
-      today: "New Simulations",
+      today: "Total Researchs",
       title: simulation,
       icon: cart,
       bnb: "bnb2",

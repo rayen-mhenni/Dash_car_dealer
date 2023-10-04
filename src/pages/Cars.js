@@ -37,12 +37,13 @@ import axios from "axios";
 import { getJSON } from "../utils";
 import { getEmailMeetConfirm } from "../utils";
 import AddOrUpdateModalCars from "../components/Models/AddOrUpdateModalCars";
+import _ from "lodash";
 
 const { Title } = Typography;
 
 function Cars() {
   const [data, setData] = useState([]);
-  const [Loading, setLoading] = useState(false);
+  const [filetered, setfiletered] = useState([]);
 
   const [refetech, setrefetech] = useState(false);
   const [linkmeet, setlinkmeet] = useState("");
@@ -96,7 +97,11 @@ function Cars() {
         setisload(false);
       });
   };
-
+  const datatorender = () => {
+    if (filetered.length > 0) {
+      return filetered;
+    } else return data;
+  };
   return (
     <>
       <Row gutter={[24, 0]}>
@@ -108,30 +113,48 @@ function Cars() {
             title={[<h6 className="font-semibold m-0"> Cars List</h6>]}
             bodyStyle={{ paddingTop: "0" }}
             extra={
-              <Tooltip title="Add">
-                <Button
-                  type="primary"
-                  shape="circle"
-                  icon={
-                    <PlusOutlined
-                      style={{
-                        position: "relative",
-                        margin: "5px 0px 5px 5px",
+              <Row>
+                <Col md={18}>
+                  <Input
+                    placeholder="search by name"
+                    onChange={(val) => {
+                      setfiletered(
+                        data.filter((el) =>
+                          _.lowerCase(el.name).includes(
+                            _.lowerCase(val.target.value)
+                          )
+                        )
+                      );
+                    }}
+                  />
+                </Col>
+                <Col md={6}>
+                  <Tooltip title="Add">
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon={
+                        <PlusOutlined
+                          style={{
+                            position: "relative",
+                            margin: "5px 0px 5px 5px",
+                          }}
+                        />
+                      }
+                      size="large"
+                      onClick={() => {
+                        setVisible(true);
+                        setrecord({});
+                        setAction("ADD");
                       }}
                     />
-                  }
-                  size="large"
-                  onClick={() => {
-                    setVisible(true);
-                    setrecord({});
-                    setAction("ADD");
-                  }}
-                />
-              </Tooltip>
+                  </Tooltip>
+                </Col>
+              </Row>
             }
           >
             <Row gutter={[24, 24]}>
-              {data.map((p, index) => (
+              {datatorender().map((p, index) => (
                 <Col span={24} md={12} xl={6} key={index}>
                   <Card
                     bordered={false}

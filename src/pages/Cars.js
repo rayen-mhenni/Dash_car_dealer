@@ -68,17 +68,15 @@ function Cars() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/api/car", config)
-      .then((response) => {
-        if (response.data.car) {
-          setData(response.data.car);
-          setisload(false);
-        } else {
-          notification.error({ message: "No Data Found" });
-          setisload(false);
-        }
-      });
+    axios.get("http://127.0.0.1:5000/api/car", config).then((response) => {
+      if (response.data.car) {
+        setData(response.data.car);
+        setisload(false);
+      } else {
+        notification.error({ message: "No Data Found" });
+        setisload(false);
+      }
+    });
   }, [refetech]);
 
   const handrefetech = () => {
@@ -140,8 +138,8 @@ function Cars() {
                     className="card-project"
                     cover={<Image alt="slide" src={p.image} />}
                   >
-                    <h5>{p.title}</h5>
-                    <p>{p.content}</p>
+                    <h5>{p.name}</h5>
+                    <p>{p.Model}</p>
                     <Row
                       gutter={[6, 5]}
                       justify="center"
@@ -163,7 +161,7 @@ function Cars() {
                         <Button
                           danger
                           onClick={() => {
-                            handleDelete(p.id);
+                            handleDelete(p._id);
                           }}
                         >
                           Delete
@@ -173,18 +171,6 @@ function Cars() {
                   </Card>
                 </Col>
               ))}
-              <Col span={24} md={12} xl={6}>
-                <Button
-                  icon={<UploadOutlined />}
-                  onClick={() => {
-                    setAction("ADD");
-                    setVisible(true);
-                  }}
-                  style={{ height: "100%", width: "100%" }}
-                >
-                  Add New Cars
-                </Button>
-              </Col>
             </Row>
           </Card>
         </Col>

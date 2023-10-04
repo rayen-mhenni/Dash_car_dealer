@@ -11,6 +11,8 @@ import {
   Radio,
   Row,
   Select,
+  Spin,
+  Tag,
   Upload,
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
@@ -20,15 +22,13 @@ import axios from "axios";
 import { VerticalAlignTopOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 import getEnvValue, { getJSON } from "../../utils";
+import { isNil } from "lodash";
 const { Option } = Select;
 
 const AddOrUpdateModalCars = (props) => {
   const { visible, onCancel } = props;
   const [Loading, setLoading] = useState(false);
-  const [imageURL, setImageURL] = useState(false);
-  const serverURL = "https://www.PrimoCarthage.fr";
-
-  console.log("dsdsqdqsd", serverURL);
+  const serverURL = "http://127.0.0.1:5000";
 
   const [form] = useForm();
 
@@ -36,6 +36,8 @@ const AddOrUpdateModalCars = (props) => {
     if (props.type === "EDIT") {
       form.setFieldsValue({
         ...props.record,
+        images:
+          props.record?.images.length > 0 ? props.record?.images.length : [],
       });
     } else {
     }
@@ -47,48 +49,40 @@ const AddOrUpdateModalCars = (props) => {
     reader.readAsDataURL(img);
   };
 
-  const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  };
-
-  const handleChange = async (info) => {
-    if (info.file.status === "uploading") {
-      setLoading(false);
-      return;
-    }
-    if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setLoading(false);
-        setImageURL(false);
-      });
-    }
+  const handleChange = async (info, listfilesuploaded) => {
+    setLoading(true);
     try {
-      if (info.file.status !== "uploading") {
-        console.log("filee", info.file);
+      const listOfPromise = [];
+      info?.fileList?.forEach((el) => {
+        if (
+          !isNil(el?.originFileObj.name) &&
+          !listfilesuploaded.find(
+            (val) => val === serverURL + "/images/" + el?.originFileObj.name
+          )
+        ) {
+          var bodyFormData = new FormData();
 
-        var bodyFormData = new FormData();
-
-        bodyFormData.append("images", info.file.originFileObj);
-        form.setFieldsValue({
-          image: serverURL + "/images/" + info?.file.originFileObj.name,
-        });
-        setImageURL(true);
-        await axios({
-          method: "post",
-          url: serverURL + "/api/upload",
-          data: bodyFormData,
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      }
+          bodyFormData.append("images", el.originFileObj);
+          form.setFieldsValue({
+            images: [
+              ...form.getFieldValue("images"),
+              serverURL + "/images/" + el?.originFileObj.name,
+            ],
+          });
+          listOfPromise.push(
+            axios({
+              method: "post",
+              url: serverURL + "/api/upload",
+              data: bodyFormData,
+              headers: { "Content-Type": "multipart/form-data" },
+            })
+          );
+        }
+      });
+      await Promise.all(listOfPromise);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -103,7 +97,7 @@ const AddOrUpdateModalCars = (props) => {
     let user = JSON.parse(localStorage.getItem("user"));
     const values = {
       ...val,
-      id: props.record.id,
+      id: props.record._id,
     };
 
     if (props.type === "EDIT") {
@@ -112,10 +106,20 @@ const AddOrUpdateModalCars = (props) => {
         .put(
           "http://127.0.0.1:5000/api/car/edit/" + values.id,
           {
-            author: values?.author,
-            content: values.content,
-            title: values.title,
-            image: values.image,
+            name: values?.name,
+            Make: values.Make,
+            Model: values.Model,
+            Year: values.Year,
+            Mileage: values.Mileage,
+            Engine: values.Engine,
+            Cylinder: values.Cylinder,
+            Transmission: values.Transmission,
+            Bodytype: values.Bodytype,
+            INTERIORCOLOR: values.INTERIORCOLOR,
+            EXTERIORCOLOR: values.EXTERIORCOLOR,
+            description: values.description,
+            images: form.getFieldValue("images"),
+            options: values.options,
           },
           config
         )
@@ -132,12 +136,22 @@ const AddOrUpdateModalCars = (props) => {
       console.log("from", form.getFieldValue("data"));
       await axios
         .post(
-          "https://www.PrimoCarthage.fr/api/articles/add/",
+          "http://127.0.0.1:5000/api/car",
           {
-            title: form.getFieldValue("title"),
-            content: form.getFieldValue("content"),
-            author: form.getFieldValue("author"),
-            image: form.getFieldValue("image"),
+            name: values?.name,
+            Make: values.Make,
+            Model: values.Model,
+            Year: values.Year,
+            Mileage: values.Mileage,
+            Engine: values.Engine,
+            Cylinder: values.Cylinder,
+            Transmission: values.Transmission,
+            Bodytype: values.Bodytype,
+            INTERIORCOLOR: values.INTERIORCOLOR,
+            EXTERIORCOLOR: values.EXTERIORCOLOR,
+            description: values.description,
+            images: form.getFieldValue("images"),
+            options: values.options,
           },
           config
         )
@@ -179,46 +193,51 @@ const AddOrUpdateModalCars = (props) => {
           >
             <Row justify="space-between" gutter={16}>
               <Col span={24}>
-                <Form.Item shouldUpdate noStyle>
-                  {({ getFieldValue }) => (
-                    <Form.Item
-                      name="image"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your image!",
-                        },
-                      ]}
-                    >
-                      <Upload
-                        name="slideimg"
-                        listType="picture-card"
-                        className="avatar-uploader projects-uploader"
-                        showUploadList={false}
-                        beforeUpload={beforeUpload}
-                        onChange={handleChange}
-                        multiple
+                {Loading ? (
+                  <Row justify="center">
+                    <Spin />
+                  </Row>
+                ) : (
+                  <Form.Item shouldUpdate noStyle>
+                    {({ getFieldValue }) => (
+                      <Form.Item
+                        name="image"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input your images!",
+                          },
+                        ]}
                       >
-                        {imageURL || props?.record?.image ? (
-                          <img
-                            src={getFieldValue("image") ?? props?.record?.image}
-                            alt="slideimg"
-                            style={{ width: "100%" }}
-                          />
-                        ) : (
-                          <div className="ant-upload-text font-semibold text-dark">
-                            {
+                        <Upload
+                          name="slideimg"
+                          className="avatar-uploader projects-uploader"
+                          onChange={(val) =>
+                            handleChange(val, getFieldValue("images"))
+                          }
+                          listType="picture-card"
+                          fileList={getFieldValue("images")?.map((el, i) => ({
+                            uid: -i,
+                            name: "image.png",
+                            status: "done",
+                            url: el,
+                          }))}
+                          multiple
+                        >
+                          <Button
+                            icon={
                               <VerticalAlignTopOutlined
                                 style={{ width: 20, color: "#000" }}
                               />
                             }
-                            <div>Upload New Image</div>
-                          </div>
-                        )}
-                      </Upload>
-                    </Form.Item>
-                  )}
-                </Form.Item>
+                          >
+                            Upload Images
+                          </Button>
+                        </Upload>
+                      </Form.Item>
+                    )}
+                  </Form.Item>
+                )}
               </Col>
 
               <Col span={12}>

@@ -26,7 +26,7 @@ const AddOrUpdateModalArticle = (props) => {
   const { visible, onCancel } = props;
   const [Loading, setLoading] = useState(false);
   const [imageURL, setImageURL] = useState(false);
-  const serverURL = 'https://www.portalite.fr';
+  const serverURL = 'https://www.PrimoCarthage.fr';
 
   console.log('dsdsqdqsd', serverURL)
 
@@ -110,7 +110,7 @@ const AddOrUpdateModalArticle = (props) => {
       console.log("oooooooo", values);
       await axios
         .put(
-          "https://www.portalite.fr/api/articles/update/" + values.id,
+          "https://www.PrimoCarthage.fr/api/articles/update/" + values.id,
           {
             author: values?.author,
             content: values.content,
@@ -132,7 +132,7 @@ const AddOrUpdateModalArticle = (props) => {
       console.log("from", form.getFieldValue("data"));
       await axios
         .post(
-          "https://www.portalite.fr/api/articles/add/",
+          "https://www.PrimoCarthage.fr/api/articles/add/",
           {
             title: form.getFieldValue("title"),
             content: form.getFieldValue("content"),

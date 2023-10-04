@@ -36,7 +36,7 @@ const SendMailToContactModel = (props) => {
     const subject = form.getFieldValue("subject");
     const emailcontent = form.getFieldValue("email");
     axios
-      .get(`https://www.portalite.fr/api/emails/CONTACT`, config)
+      .get(`https://www.PrimoCarthage.fr/api/emails/CONTACT`, config)
       .then((response) => {
         if (response.data) {
           let templateParams = {

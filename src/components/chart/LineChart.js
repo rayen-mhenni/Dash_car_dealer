@@ -19,7 +19,7 @@ function LineChart() {
 
   useEffect(() => {
     axios
-      .get("https://www.portalite.fr/api/stat/simul/chart", config)
+      .get("https://www.PrimoCarthage.fr/api/stat/simul/chart", config)
       .then((response) => {
         if (response.data.months) {
           setData(response.data.months);

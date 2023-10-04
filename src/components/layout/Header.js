@@ -124,11 +124,6 @@ function Header({
 
   const menu = (
     <Menu>
-      <Badge count={listnotif.length} size="small">
-        <Menu.Item key="2">
-          <a onClick={() => setnotif(true)}>Notification</a>
-        </Menu.Item>
-      </Badge>
       <Menu.Item key="3">
         <Link to="/sign-in" onClick={handlelogout}>
           logout
@@ -146,7 +141,7 @@ function Header({
     (async () => {
       let list = [];
       await axios
-        .get("https://www.portalite.fr/api/simulations", config)
+        .get("https://www.PrimoCarthage.fr/api/simulations", config)
         .then((response) => {
           if (response.data) {
             let listSimul = response.data.filter((simul) =>
@@ -159,14 +154,14 @@ function Header({
               notifcontent: `Simuler par ${simul?.email} le ${moment(
                 simul?.created_at
               ).format("YYYY-MM-DD")}`,
-              type:"SIMUL"
+              type: "SIMUL",
             }));
             list = list.concat(listSimul);
           }
         });
 
       await axios
-        .get("https://www.portalite.fr/api/reservation", config)
+        .get("https://www.PrimoCarthage.fr/api/reservation", config)
         .then((response) => {
           if (response.data) {
             let listReserv = response.data.filter((reserv) =>
@@ -180,13 +175,13 @@ function Header({
               notifcontent: `email:${reserv?.email} / date: ${moment(
                 reserv?.date
               ).format("MMMM Do YYYY, h:mm:ss a")}`,
-              type:"RES"
+              type: "RES",
             }));
             list = list.concat(listReserv);
           }
         });
       await axios
-        .get("https://www.portalite.fr/api/contact", config)
+        .get("https://www.PrimoCarthage.fr/api/contact", config)
         .then((response) => {
           if (response.data) {
             let listContact = response.data.filter((conatct) =>
@@ -200,12 +195,12 @@ function Header({
               notifcontent: `message: ${conatct?.message} / date: ${moment(
                 conatct?.created_at
               ).format("MMMM Do YYYY, h:mm:ss a")}`,
-              type:"CON"
+              type: "CON",
             }));
             list = list.concat(listContact);
           }
         });
-        setlistnotif(list)
+      setlistnotif(list);
     })();
   }, []);
 
@@ -249,7 +244,19 @@ function Header({
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title={<Link to={item.type==="SIMUL"?"/semulations":item.type==="RES"?"/meeting":"/contact"}>{item.notifTitle}</Link>}
+                title={
+                  <Link
+                    to={
+                      item.type === "SIMUL"
+                        ? "/semulations"
+                        : item.type === "RES"
+                        ? "/meeting"
+                        : "/contact"
+                    }
+                  >
+                    {item.notifTitle}
+                  </Link>
+                }
                 description={item.notifcontent}
               />
             </List.Item>

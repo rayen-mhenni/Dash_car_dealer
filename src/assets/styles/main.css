@@ -956,7 +956,7 @@ button.ant-btn.bell strong {
   width: 48px;
   height: 48px;
   text-align: center;
-  background: rgba(0, 170, 168, 1);
+  background: rgba(228, 202, 115, 1);
   color: #fff;
   border-radius: 0.5rem;
   margin-left: auto;
@@ -2133,11 +2133,10 @@ body {
   color: #141414;
 }
 .sign-img img {
-  width: 100%;
-  max-width: 150px;
+  width: 350px;
+ 
   margin: auto;
   display: block;
-  margin-bottom: 80px !important;
 }
 
 .layout-signin {
@@ -3045,52 +3044,52 @@ element.style {
 }
 
 .ant-btn-primary{
-  background-color: #00aaa8;
-  border: #00aaa8;
+  background-color: #e4ca73;
+  border: #e4ca73;
 }
 
 .ant-btn-primary:hover{
-  background-color: rgba(0, 170, 168, 0.5);
-  border: #06d8d4;
+  background-color: rgba(228, 202, 115, 0.5);
+  border: #333533;
 }
 
 .ant-btn:hover{
-  border: 1px solid #00aaa8;
-  color: #00aaa8;
+  border: 1px solid #e4ca73;
+  color: #e4ca73;
 }
 .ant-btn:focus{
-  border: 1px solid #00aaa8;
-  color: #00aaa8;
+  border: 1px solid #e4ca73;
+  color: #e4ca73;
 }
 
 .ant-btn-primary:focus{
-  background-color: rgba(0, 170, 168, 0.7);
-  border: #00aaa8;
+  background-color: rgba(228, 202, 115, 0.7);
+  border: #e4ca73;
   color: #fff;
 }
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #00aaa8 !important;
+  color: #e4ca73 !important;
 }
 
 .ant-switch-checked {
-  background-color: #00aaa8 !important;
+  background-color: #e4ca73 !important;
 }
 html{
-  --antd-wave-shadow-color: #00aaa8 !important;
+  --antd-wave-shadow-color: #e4ca73 !important;
 }
 ::selection {
   color: #fff;
-  background: #00aaa8 !important;
+  background: #e4ca73 !important;
 }
 
 .aRef{
-  color: #00aaa8;
+  color: #e4ca73;
 }
 
 .aRef:hover{
-  color:#06d8d4;
+  color:#333533;
 }
 
 .ant-tree.ant-tree-directory .ant-tree-treenode-selected:hover::before, .ant-tree.ant-tree-directory .ant-tree-treenode-selected::before{
-  background: #00aaa8 !important;
+  background: #e4ca73 !important;
 }

@@ -26,7 +26,7 @@ import {
 } from "@ant-design/icons";
 import emailjs from "@emailjs/browser";
 
-import logo from "../assets/images/Logo-Portalite-Rogne-removebg-preview.png";
+import logo from "../assets/images/logo_2-removebg-preview.png";
 import { useForm } from "antd/lib/form/Form";
 import { getEmailResetPass } from "../utils";
 
@@ -47,14 +47,14 @@ const SignIn = () => {
 
   const resetpassword = async () => {
     await axios
-      .put("https://www.portalite.fr/api/users/resetpassword", { email: email })
+      .put("https://www.PrimoCarthage.fr/api/users/resetpassword", { email: email })
       .then((data) => {
         let templateParams = {
           name: "Mr or Mm",
           email: email,
           html_temp: getEmailResetPass({
             email: email,
-            message: `http://dashboard.portalite.fr:81/resetpassword/${data.data.id}/Bearrer ${data.data.token}`,
+            message: `http://dashboard.PrimoCarthage.fr:81/resetpassword/${data.data.id}/Bearrer ${data.data.token}`,
           }),
         };
 
@@ -80,27 +80,29 @@ const SignIn = () => {
   };
 
   const onFinish = async () => {
-    await axios
-      .post("https://www.portalite.fr/api/users", {
-        Email: email,
-        Password: password,
-      })
-      .then((response) => {
-        if (response.data.token) {
-          notification.success({ message: response?.data?.message });
-          localStorage.setItem(
-            "token",
-            JSON.stringify("Bearer " + response.data.token)
-          );
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-          hist("/dashboard");
-        } else {
-          notification.error({ message: "no account with these credential" });
-        }
-      })
-      .catch((err) => {
-        notification.error({ message: "no account with these credential" });
-      });
+    hist("/dashboard");
+
+    // await axios
+    //   .post("https://www.PrimoCarthage.fr/api/users", {
+    //     Email: email,
+    //     Password: password,
+    //   })
+    //   .then((response) => {
+    //     if (response.data.token) {
+    //       notification.success({ message: response?.data?.message });
+    //       localStorage.setItem(
+    //         "token",
+    //         JSON.stringify("Bearer " + response.data.token)
+    //       );
+    //       localStorage.setItem("user", JSON.stringify(response.data.user));
+    //       hist("/dashboard");
+    //     } else {
+    //       notification.error({ message: "no account with these credential" });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     notification.error({ message: "no account with these credential" });
+    //   });
   };
 
   return (

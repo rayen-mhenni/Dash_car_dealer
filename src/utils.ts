@@ -3,7 +3,7 @@ type ResetPassType = {
   message: string;
 };
 export const getEmailResetPass = (params: ResetPassType) => {
-  return `<p>Hello ${params.email},</p> <p><strong>You will find below a link to reset your password:</strong></p> <p><a href='${params.message}'>Reset My Password</a></p> <p>&nbsp;</p> <p>BR,<br><strong>Portalite team</strong></p>`;
+  return `<p>Hello ${params.email},</p> <p><strong>You will find below a link to reset your password:</strong></p> <p><a href='${params.message}'>Reset My Password</a></p> <p>&nbsp;</p> <p>BR,<br><strong>PrimoCarthage team</strong></p>`;
 };
 type MeetConfirmType = {
   name: string;

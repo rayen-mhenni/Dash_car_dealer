@@ -35,7 +35,6 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getJSON } from "../utils";
-import AddOrUpdateModalPartners from "../components/Models/AddOrUpdateModalPartners";
 import { getEmailMeetConfirm } from "../utils";
 import AddOrUpdateModalArticle from "../components/Models/AddOrUpdateModalArticle";
 
@@ -89,7 +88,7 @@ function Article() {
   };
 
   useEffect(() => {
-    axios.get("https://www.portalite.fr/api/articles", config).then((response) => {
+    axios.get("https://www.PrimoCarthage.fr/api/articles", config).then((response) => {
       if (response.data) {
         setData(response.data);
         setisload(false);
@@ -107,7 +106,7 @@ function Article() {
   const handleDelete = async (id) => {
     setisload(true);
     await axios
-      .delete(`https://www.portalite.fr/api/articles/delete/${id}`, config)
+      .delete(`https://www.PrimoCarthage.fr/api/articles/delete/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);

@@ -1,3 +1,3 @@
 window.env = {
-  SERVER_URL: "https://portalite.fr",
+  SERVER_URL: "https://PrimoCarthage.fr",
 };

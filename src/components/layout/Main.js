@@ -62,7 +62,7 @@ function Main() {
             }`}
             style={{ background: sidenavType }}
           >
-            <Sidenav color="#00aaa8" />
+            <Sidenav color="#e4ca73" />
           </Sider>
         </Layout>
       </Drawer>
@@ -80,7 +80,7 @@ function Main() {
         }`}
         style={{ background: sidenavType }}
       >
-        <Sidenav color="#00aaa8" />
+        <Sidenav color="#e4ca73" />
       </Sider>
       <Layout>
           {/* <Affix> */}

@@ -42,8 +42,6 @@ import card from "../assets/images/info-card-1.jpg";
 import axios from "axios";
 import { getJSON } from "../utils";
 import { useNavigate } from "react-router-dom";
-import UpdateModalSocial from "../components/Models/UpdateModalSocial";
-import Semulations from "./Semulations";
 
 function Home() {
   const { Title, Text } = Typography;
@@ -77,22 +75,8 @@ function Home() {
   };
 
   useEffect(() => {
-
     axios
-    .get("https://www.portalite.fr/api/socials", config)
-    .then((response) => {
-      if (response.data) {
-        setData(response.data[0]);
-        console.log("ooooooo", response.data);
-        setisload(false);
-      } else {
-        notification.error({ message: "No Data Found" });
-        setisload(false);
-      }
-    })
-
-    axios
-      .get("https://www.portalite.fr/api/socials", config)
+      .get("https://www.PrimoCarthage.fr/api/socials", config)
       .then((response) => {
         if (response.data) {
           setData(response.data[0]);
@@ -102,10 +86,23 @@ function Home() {
           notification.error({ message: "No Data Found" });
           setisload(false);
         }
-      })
+      });
 
     axios
-      .get("https://www.portalite.fr/api/stat/meeting", config)
+      .get("https://www.PrimoCarthage.fr/api/socials", config)
+      .then((response) => {
+        if (response.data) {
+          setData(response.data[0]);
+          console.log("ooooooo", response.data);
+          setisload(false);
+        } else {
+          notification.error({ message: "No Data Found" });
+          setisload(false);
+        }
+      });
+
+    axios
+      .get("https://www.PrimoCarthage.fr/api/stat/meeting", config)
       .then((response) => {
         if (response.data) {
           setMeeting(response.data);
@@ -117,7 +114,7 @@ function Home() {
         }
       });
     axios
-      .get("https://www.portalite.fr/api/stat/simul", config)
+      .get("https://www.PrimoCarthage.fr/api/stat/simul", config)
       .then((response) => {
         if (response.data) {
           setsimulation(response.data);
@@ -129,7 +126,7 @@ function Home() {
         }
       });
     axios
-      .get("https://www.portalite.fr/api/stat/contact", config)
+      .get("https://www.PrimoCarthage.fr/api/stat/contact", config)
       .then((response) => {
         if (response.data) {
           setcontact(response.data);
@@ -141,13 +138,11 @@ function Home() {
         }
       });
 
-
-      axios
-      .get("https://www.portalite.fr/api/visite/visite", config)
+    axios
+      .get("https://www.PrimoCarthage.fr/api/visite/visite", config)
       .then((response) => {
         if (response.data) {
           setvisite(response.data[0]);
-
         } else {
           // notification.error({ message: "No Data Found" });
         }
@@ -162,7 +157,7 @@ function Home() {
     setisload(true);
 
     await axios
-      .delete(`https://www.portalite.fr/api/data/socials/${id}`, config)
+      .delete(`https://www.PrimoCarthage.fr/api/data/socials/${id}`, config)
       .then(function (response) {
         setisload(false);
 
@@ -410,10 +405,6 @@ function Home() {
     },
   ];
 
-
-
-
-
   return (
     <>
       <div className="layout-content">
@@ -448,13 +439,11 @@ function Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-
           {/* <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
               <Echart />
             </Card>
           </Col> */}
-
 
           <Col xs={24} sm={24} md={12} lg={24} xl={24} className="mb-24">
             <Card bordered={false} className="criclebox h-full">
@@ -463,11 +452,6 @@ function Home() {
           </Col>
         </Row>
 
-        <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24} className="mb-24">
-            <Semulations />
-          </Col>
-        </Row>
         <Card
           extra={
             <Button
@@ -493,7 +477,7 @@ function Home() {
                     <Col xs={12}>
                       <Typography.Link
                         strong
-                        style={{ color: "#00aaa8", width: "100%" }}
+                        style={{ color: "#e4ca73", width: "100%" }}
                         href={data.facebook}
                       >
                         FaceBook
@@ -516,7 +500,7 @@ function Home() {
                     <Col xs={12}>
                       <Typography.Link
                         strong
-                        style={{ color: "#00aaa8", width: "100%" }}
+                        style={{ color: "#e4ca73", width: "100%" }}
                         href={data.linkedin}
                       >
                         Linkedin
@@ -539,7 +523,7 @@ function Home() {
                     <Col xs={12}>
                       <Typography.Link
                         strong
-                        style={{ color: "#00aaa8", width: "100%" }}
+                        style={{ color: "#e4ca73", width: "100%" }}
                         href={data.twitter}
                       >
                         Twitter
@@ -562,7 +546,7 @@ function Home() {
                     <Col xs={12}>
                       <Typography.Link
                         strong
-                        style={{ color: "#00aaa8", width: "100%" }}
+                        style={{ color: "#e4ca73", width: "100%" }}
                         href={data.instagram}
                       >
                         Instagram
@@ -573,12 +557,6 @@ function Home() {
               </Card>
             </Col>
           </Row>
-          <UpdateModalSocial
-            visible={visible}
-            record={data}
-            refetech={handrefetech}
-            onCancel={() => setVisible(false)}
-          />
         </Card>
       </div>
     </>

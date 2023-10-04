@@ -35,7 +35,7 @@ function RestPassword() {
     };
     await axios
       .put(
-        "https://www.portalite.fr/api/users/updatepassword/" + id,
+        "https://www.PrimoCarthage.fr/api/users/updatepassword/" + id,
         { password: value.newpassword, token },
         config
       )

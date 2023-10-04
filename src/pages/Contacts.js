@@ -31,7 +31,6 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getJSON } from "../utils";
-import AddOrUpdateModalPartners from "../components/Models/AddOrUpdateModalPartners";
 import SendMailToContactModel from "../components/Models/SendMailToContactModel";
 
 const { Title } = Typography;
@@ -63,7 +62,7 @@ function Contacts() {
 
   useEffect(() => {
     axios
-      .get("https://www.portalite.fr/api/contact", config)
+      .get("https://www.PrimoCarthage.fr/api/contact", config)
       .then((response) => {
         if (response.data) {
           setData(response.data);
@@ -83,7 +82,7 @@ function Contacts() {
     setisload(true);
 
     await axios
-      .delete(`https://www.portalite.fr/api/contact/delete/${id}`, config)
+      .delete(`https://www.PrimoCarthage.fr/api/contact/delete/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);

@@ -5,9 +5,9 @@ import { getJSON } from "./utils";
 const ProtectedRoute = () => {
   const token = localStorage.getItem("token");
 
-  if (!token||!getJSON(localStorage.getItem("token"))) {
-    return <Navigate to="/sign-in" replace />;
-  }
+  // if (!token||!getJSON(localStorage.getItem("token"))) {
+  //   return <Navigate to="/sign-in" replace />;
+  // }
 
   return <Outlet />;
 };

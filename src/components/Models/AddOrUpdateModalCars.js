@@ -36,8 +36,7 @@ const AddOrUpdateModalCars = (props) => {
     if (props.type === "EDIT") {
       form.setFieldsValue({
         ...props.record,
-        images:
-          props.record?.images.length > 0 ? props.record?.images : [],
+        images: props.record?.images.length > 0 ? props.record?.images : [],
       });
     } else {
       form.setFieldsValue({
@@ -124,6 +123,7 @@ const AddOrUpdateModalCars = (props) => {
             description: values.description,
             images: form.getFieldValue("images"),
             options: values.options,
+            Vin: values.Vin,
           },
           config
         )
@@ -157,6 +157,7 @@ const AddOrUpdateModalCars = (props) => {
             description: values.description,
             images: form.getFieldValue("images"),
             options: values.options,
+            Vin: values.Vin,
           },
           config
         )
@@ -280,6 +281,19 @@ const AddOrUpdateModalCars = (props) => {
                   ]}
                 >
                   <Input placeholder="Model" type="Model" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Vin"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Vin!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Vin" type="Vin" />
                 </Form.Item>
               </Col>
               <Col span={12}>

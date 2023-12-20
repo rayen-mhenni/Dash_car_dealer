@@ -69,7 +69,7 @@ function Cars() {
   };
 
   useEffect(() => {
-    axios.get("https://www.primocarthageauto.ca:8433/api/car", config).then((response) => {
+    axios.get("http://www.primocarthageauto.ca:81/api/car", config).then((response) => {
       if (response.data.car) {
         setData(response.data.car);
         setisload(false);
@@ -87,7 +87,7 @@ function Cars() {
   const handleDelete = async (id) => {
     setisload(true);
     await axios
-      .delete(`https://www.primocarthageauto.ca:8433/api/car/delete/${id}`, config)
+      .delete(`http://www.primocarthageauto.ca:81/api/car/delete/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);

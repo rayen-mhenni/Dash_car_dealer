@@ -80,7 +80,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://www.primocarthageauto.ca:8433/api/financing", config)
+      .get("http://www.primocarthageauto.ca:81/api/financing", config)
       .then((response) => {
         if (response.data) {
           setFinancing(response.data.reclamations);
@@ -92,7 +92,7 @@ function Home() {
       });
 
     axios
-      .get("https://www.primocarthageauto.ca:8433/api/car", config)
+      .get("http://www.primocarthageauto.ca:81/api/car", config)
       .then((response) => {
         if (response.data) {
           setCar(response.data.car);
@@ -104,7 +104,7 @@ function Home() {
       });
 
     axios
-      .get("https://www.primocarthageauto.ca:8433/api/statistic/" + "2023-10", config)
+      .get("http://www.primocarthageauto.ca:81/api/statistic/" + "2023-10", config)
       .then((response) => {
         if (response.data) {
           setStatistic(response.data.statistic);

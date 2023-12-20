@@ -69,7 +69,7 @@ function Cars() {
   };
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/api/car", config).then((response) => {
+    axios.get("https://www.primocarthageauto.ca/api/car", config).then((response) => {
       if (response.data.car) {
         setData(response.data.car);
         setisload(false);
@@ -87,7 +87,7 @@ function Cars() {
   const handleDelete = async (id) => {
     setisload(true);
     await axios
-      .delete(`http://127.0.0.1:5000/api/car/delete/${id}`, config)
+      .delete(`https://www.primocarthageauto.ca/api/car/delete/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);

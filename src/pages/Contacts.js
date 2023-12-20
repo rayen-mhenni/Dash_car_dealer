@@ -62,7 +62,7 @@ function Contacts() {
 
   useEffect(() => {
     axios
-      .get("https://www.primocarthageauto.ca/api/financing", config)
+      .get("https://www.primocarthageauto.ca:8433/api/financing", config)
       .then((response) => {
         if (response.data) {
           console.log('ddddd', response)
@@ -83,7 +83,7 @@ function Contacts() {
     setisload(true);
 
     await axios
-      .delete(`https://www.primocarthageauto.ca/api/financing/${id}`, config)
+      .delete(`https://www.primocarthageauto.ca:8433/api/financing/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-concat */
 import {
   Button,
   Card,
@@ -59,7 +60,7 @@ const AddOrUpdateModalCars = (props) => {
         if (
           !isNil(el?.originFileObj.name) &&
           !listfilesuploaded.find(
-            (val) => val === serverURL + "/images/" + el?.originFileObj.name
+            (val) => val === "https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj.name
           )
         ) {
           var bodyFormData = new FormData();
@@ -68,13 +69,13 @@ const AddOrUpdateModalCars = (props) => {
           form.setFieldsValue({
             images: [
               ...form.getFieldValue("images"),
-              serverURL + "/images/" + el?.originFileObj.name,
+              "https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj.name,
             ],
           });
           listOfPromise.push(
             axios({
               method: "post",
-              url: serverURL + "/api/upload",
+              url: "https://www.primocarthageauto.ca" + "/api/upload",
               data: bodyFormData,
               headers: { "Content-Type": "multipart/form-data" },
             })

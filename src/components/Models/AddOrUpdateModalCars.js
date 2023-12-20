@@ -107,7 +107,7 @@ const AddOrUpdateModalCars = (props) => {
       console.log("oooooooo", values);
       await axios
         .put(
-          "http://www.primocarthageauto.ca:81/api/car/edit/" + values.id,
+          "https://www.primocarthageauto.ca/api/car/edit/" + values.id,
           {
             name: values?.name,
             Make: values.Make,
@@ -141,7 +141,7 @@ const AddOrUpdateModalCars = (props) => {
       console.log("from", form.getFieldValue("data"));
       await axios
         .post(
-          "http://www.primocarthageauto.ca:81/api/car",
+          "https://www.primocarthageauto.ca/api/car",
           {
             name: values?.name,
             Make: values.Make,

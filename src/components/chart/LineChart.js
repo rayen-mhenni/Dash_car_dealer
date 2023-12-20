@@ -21,7 +21,7 @@ function LineChart() {
 
   useEffect(() => {
     axios
-      .get("http://www.primocarthageauto.ca:81/api/financing", config)
+      .get("https://www.primocarthageauto.ca/api/financing", config)
       .then((response) => {
         if (response.data.reclamations) {
           let rander = _.groupBy(response.data.reclamations, 'month')

@@ -11,11 +11,7 @@ function Footer() {
       <Row className="just" justify="center">
         <Col xs={24} md={12} lg={12}>
           <div className="copyright">
-            © 2023, made with
-            {<HeartFilled />} by
-            <a href="#pablo" className="font-weight-bold" target="_blank">
-              Rayen & Oussama
-            </a>
+            © 2023
           </div>
         </Col>
  

@@ -23,12 +23,13 @@ import axios from "axios";
 import { VerticalAlignTopOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 import getEnvValue, { getJSON } from "../../utils";
-import { isNil } from "lodash";
+import _, { isNil } from "lodash";
 const { Option } = Select;
 
 const AddOrUpdateModalCars = (props) => {
   const { visible, onCancel } = props;
   const [Loading, setLoading] = useState(false);
+  const [filelist, setfilelist] = useState([]);
   const serverURL = "http://127.0.0.1:5000";
 
   const [form] = useForm();
@@ -37,12 +38,10 @@ const AddOrUpdateModalCars = (props) => {
     if (props.type === "EDIT") {
       form.setFieldsValue({
         ...props.record,
-        images: props.record?.images.length > 0 ? props.record?.images : [],
       });
+      setfilelist(props.record?.images.length > 0 ? props.record?.images : []);
     } else {
-      form.setFieldsValue({
-        images: [],
-      });
+      setfilelist([]);
     }
   }, [form, props.record, props.visible]);
 
@@ -53,40 +52,40 @@ const AddOrUpdateModalCars = (props) => {
   };
 
   const handleChange = async (info, listfilesuploaded) => {
-    setLoading(true);
-    try {
-      const listOfPromise = [];
-      info?.fileList?.forEach((el) => {
-        if (
-          !isNil(el?.originFileObj.name) &&
-          !listfilesuploaded.find(
-            (val) => val === "https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj.name
-          )
-        ) {
-          var bodyFormData = new FormData();
+    if (info.file.uid === _.last(info.fileList).uid) {
+      setLoading(true);
 
-          bodyFormData.append("images", el.originFileObj);
-          form.setFieldsValue({
-            images: [
-              ...form.getFieldValue("images"),
-              "https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj.name,
-            ],
-          });
-          listOfPromise.push(
-            axios({
-              method: "post",
-              url: "https://www.primocarthageauto.ca" + "/api/upload",
-              data: bodyFormData,
-              headers: { "Content-Type": "multipart/form-data" },
-            })
-          );
-        }
-      });
-      await Promise.all(listOfPromise);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
+      try {
+        const listOfPromise = [];
+        const newImageArray = [];
+
+        info?.fileList?.forEach((el) => {
+          if (el?.originFileObj) {
+            var bodyFormData = new FormData();
+
+            bodyFormData.append("images", el?.originFileObj);
+
+            newImageArray.push("https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj?.name);
+
+            listOfPromise.push(
+              axios({
+                method: "post",
+                url: "https://www.primocarthageauto.ca" + "/api/upload",
+                data: bodyFormData,
+                headers: { "Content-Type": "multipart/form-data" },
+              })
+            );
+          }
+        });
+
+        await Promise.all(listOfPromise);
+        setfilelist([...listfilesuploaded, ...newImageArray]);
+
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
     }
   };
 
@@ -122,7 +121,7 @@ const AddOrUpdateModalCars = (props) => {
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
             description: values.description,
-            images: form.getFieldValue("images"),
+            images: filelist,
             options: values.options,
             Vin: values.Vin,
           },
@@ -156,7 +155,7 @@ const AddOrUpdateModalCars = (props) => {
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
             description: values.description,
-            images: form.getFieldValue("images"),
+            images: filelist,
             options: values.options,
             Vin: values.Vin,
           },
@@ -173,13 +172,8 @@ const AddOrUpdateModalCars = (props) => {
         });
     }
   };
-
   return (
-    <Form
-      form={form}
-      onFinish={handleonfinish}
-      preserve={props.type === "EDIT" ? true : false}
-    >
+    <Form form={form} onFinish={handleonfinish} preserve={props.type === "EDIT" ? true : false}>
       <div className="site-card-border-less-wrapper">
         <Modal
           title={props.type === "EDIT" ? "UPDATE" : "CREATE"}
@@ -205,42 +199,32 @@ const AddOrUpdateModalCars = (props) => {
                     <Spin />
                   </Row>
                 ) : (
-                  <Form.Item shouldUpdate noStyle>
-                    {({ getFieldValue }) => {
-                      return (
-                        <Form.Item name="image">
-                          <Upload
-                            name="slideimg"
-                            className="avatar-uploader projects-uploader"
-                            onChange={(val) =>
-                              handleChange(val, getFieldValue("images"))
-                            }
-                            listType="picture-card"
-                            fileList={
-                              !isNil(getFieldValue("images"))
-                                ? getFieldValue("images")?.map((el, i) => ({
-                                    uid: -i,
-                                    name: "image.png",
-                                    status: "done",
-                                    url: el,
-                                  }))
-                                : []
-                            }
-                            multiple
-                          >
-                            <Button
-                              icon={
-                                <VerticalAlignTopOutlined
-                                  style={{ width: 20, color: "#000" }}
-                                />
-                              }
-                            >
-                              Upload Images
-                            </Button>
-                          </Upload>
-                        </Form.Item>
-                      );
-                    }}
+                  <Form.Item name="image">
+                    <Upload
+                      name="slideimg"
+                      className="avatar-uploader projects-uploader"
+                      onChange={(val) => handleChange(val, filelist)}
+                      listType="picture-card"
+                      onRemove={(file) => {
+                        const index = filelist.indexOf(file.url);
+                        const newFileList = filelist.slice();
+                        newFileList.splice(index, 1);
+                        setfilelist(newFileList);
+                      }}
+                      fileList={
+                        !isNil(filelist)
+                          ? filelist?.map((el, i) => ({
+                              uid: -i,
+                              name: "image.png",
+                              status: "done",
+                              url: el,
+                            }))
+                          : []
+                      }
+                      multiple
+                    >
+                      <Button icon={<VerticalAlignTopOutlined style={{ width: 20, color: "#000" }} />}>Upload Images</Button>
+                    </Upload>
                   </Form.Item>
                 )}
               </Col>
@@ -438,13 +422,7 @@ const AddOrUpdateModalCars = (props) => {
                     },
                   ]}
                 >
-                  <Select
-                    mode="tags"
-                    size="middle"
-                    placeholder="Please select"
-                    style={{ width: "100%" }}
-                    options={[]}
-                  />
+                  <Select mode="tags" size="middle" placeholder="Please select" style={{ width: "100%" }} options={[]} />
                 </Form.Item>
               </Col>
             </Row>

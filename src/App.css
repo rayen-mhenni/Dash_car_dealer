@@ -24,9 +24,6 @@
   color: white;
 }
 
-
-
-
 .App-link {
   color: #61dafb;
 }
@@ -45,4 +42,3 @@ element.style {
 .ant-input-affix-wrapper > input.ant-input {
   height: 30px !important;
 }
-

@@ -120,6 +120,8 @@ const AddOrUpdateModalCars = (props) => {
             INTERIORCOLOR: values.INTERIORCOLOR,
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
+            Energy: typeof values.Energy === "object" ? values.Energy?.value : values.Energy,
+            CARFAX: values.CARFAX,
             description: values.description,
             images: filelist,
             options: values.options,
@@ -154,6 +156,8 @@ const AddOrUpdateModalCars = (props) => {
             INTERIORCOLOR: values.INTERIORCOLOR,
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
+            Energy: typeof values.Energy === "object" ? values.Energy?.value : values.Energy,
+            CARFAX: values.CARFAX,
             description: values.description,
             images: filelist,
             options: values.options,
@@ -396,6 +400,45 @@ const AddOrUpdateModalCars = (props) => {
                   ]}
                 >
                   <Input placeholder="Price" type="Price" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="Energy"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your Energy!",
+                    },
+                  ]}
+                >
+                  <Select
+                    style={{ height: "40px" }}
+                    options={[
+                      {
+                        value: "Diesel",
+                        label: "Diesel",
+                      },
+                      {
+                        value: "Essence",
+                        label: "Essence",
+                      },
+                      {
+                        value: "Hybride",
+                        label: "Hybride",
+                      },
+                      {
+                        value: "Electrique",
+                        label: "Electrique",
+                      },
+                    ]}
+                    placeholder="Energy"
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item name="CARFAX">
+                  <Input placeholder="CARFAX" type="CARFAX" />
                 </Form.Item>
               </Col>
 

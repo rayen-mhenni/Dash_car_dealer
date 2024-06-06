@@ -145,7 +145,9 @@ function Cars() {
                     }}
                   />
                 </Col>
+
                 <Col md={6}>
+                  &nbsp; &nbsp;
                   <Tooltip title="Add">
                     <Button
                       type="primary"

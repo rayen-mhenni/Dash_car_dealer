@@ -69,15 +69,17 @@ function Cars() {
   };
 
   useEffect(() => {
-    axios.get("https://www.primocarthageauto.ca/api/car", config).then((response) => {
-      if (response.data.car) {
-        setData(response.data.car);
-        setisload(false);
-      } else {
-        notification.error({ message: "No Data Found" });
-        setisload(false);
-      }
-    });
+    axios
+      .get("https://www.primocarthageauto.ca/api/car", config)
+      .then((response) => {
+        if (response.data.car) {
+          setData(response.data.car);
+          setisload(false);
+        } else {
+          notification.error({ message: "No Data Found" });
+          setisload(false);
+        }
+      });
   }, [refetech]);
 
   const handrefetech = () => {
@@ -97,6 +99,21 @@ function Cars() {
         setisload(false);
       });
   };
+
+  const handleTop = async (id) => {
+    setisload(true);
+    await axios
+      .put(`http://www.primocarthageauto.ca/api/car/top/${id}`, config)
+      .then(function (response) {
+        handrefetech();
+        setisload(false);
+      })
+      .catch(function (err) {
+        console.log(err);
+        setisload(false);
+      });
+  };
+
   const datatorender = () => {
     if (filetered.length > 0) {
       return filetered;
@@ -161,8 +178,18 @@ function Cars() {
                     className="card-project"
                     cover={<Image alt="slide" src={p.images[0]} />}
                   >
-                    <h5>{p.name}</h5>
-                    <p>{p.Model}</p>
+                    <div>
+                      {" "}
+                      {!p.top ? "" : <strong className="top"> TOP CAR</strong>}
+                    </div>
+
+                    <br />
+
+                    <div>
+                      <h5>{p.name}</h5>
+                      <p>{p.Model}</p>
+                    </div>
+
                     <Row
                       gutter={[6, 5]}
                       justify="center"
@@ -188,6 +215,16 @@ function Cars() {
                           }}
                         >
                           Delete
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Button
+                          danger={p.top}
+                          onClick={() => {
+                            handleTop(p._id);
+                          }}
+                        >
+                          {!p.top ? "Maked Top " : "Remove from Top"}
                         </Button>
                       </Col>
                     </Row>

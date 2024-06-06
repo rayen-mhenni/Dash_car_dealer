@@ -65,7 +65,11 @@ const AddOrUpdateModalCars = (props) => {
 
             bodyFormData.append("images", el?.originFileObj);
 
-            newImageArray.push("https://www.primocarthageauto.ca" + "/images/" + el?.originFileObj?.name);
+            newImageArray.push(
+              "https://www.primocarthageauto.ca" +
+                "/images/" +
+                el?.originFileObj?.name
+            );
 
             listOfPromise.push(
               axios({
@@ -120,7 +124,10 @@ const AddOrUpdateModalCars = (props) => {
             INTERIORCOLOR: values.INTERIORCOLOR,
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
-            Energy: typeof values.Energy === "object" ? values.Energy?.value : values.Energy,
+            Energy:
+              typeof values.Energy === "object"
+                ? values.Energy?.value
+                : values.Energy,
             CARFAX: values.CARFAX,
             description: values.description,
             images: filelist,
@@ -156,7 +163,10 @@ const AddOrUpdateModalCars = (props) => {
             INTERIORCOLOR: values.INTERIORCOLOR,
             EXTERIORCOLOR: values.EXTERIORCOLOR,
             Price: values.Price,
-            Energy: typeof values.Energy === "object" ? values.Energy?.value : values.Energy,
+            Energy:
+              typeof values.Energy === "object"
+                ? values.Energy?.value
+                : values.Energy,
             CARFAX: values.CARFAX,
             description: values.description,
             images: filelist,
@@ -177,7 +187,11 @@ const AddOrUpdateModalCars = (props) => {
     }
   };
   return (
-    <Form form={form} onFinish={handleonfinish} preserve={props.type === "EDIT" ? true : false}>
+    <Form
+      form={form}
+      onFinish={handleonfinish}
+      preserve={props.type === "EDIT" ? true : false}
+    >
       <div className="site-card-border-less-wrapper">
         <Modal
           title={props.type === "EDIT" ? "UPDATE" : "CREATE"}
@@ -227,7 +241,15 @@ const AddOrUpdateModalCars = (props) => {
                       }
                       multiple
                     >
-                      <Button icon={<VerticalAlignTopOutlined style={{ width: 20, color: "#000" }} />}>Upload Images</Button>
+                      <Button
+                        icon={
+                          <VerticalAlignTopOutlined
+                            style={{ width: 20, color: "#000" }}
+                          />
+                        }
+                      >
+                        Upload Images
+                      </Button>
                     </Upload>
                   </Form.Item>
                 )}
@@ -465,7 +487,19 @@ const AddOrUpdateModalCars = (props) => {
                     },
                   ]}
                 >
-                  <Select mode="tags" size="middle" placeholder="Please select" style={{ width: "100%" }} options={[]} />
+                  <Select
+                    mode="tags"
+                    size="middle"
+                    placeholder="Please select"
+                    style={{ width: "100%" }}
+                    options={[
+                      { label: "option1", value: "option1" },
+                      { label: "option2", value: "option2" },
+                      { label: "option3", value: "option3" },
+                      { label: "option4", value: "option4" },
+                      { label: "option5", value: "option5" },
+                    ]}
+                  />
                 </Form.Item>
               </Col>
             </Row>

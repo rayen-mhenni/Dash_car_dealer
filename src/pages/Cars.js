@@ -221,7 +221,7 @@ function Cars() {
                       </Col>
                       <Col>
                         <Button
-                          danger={p.top}
+                          type={p.top ? "dashed" : "primary"}
                           onClick={() => {
                             handleTop(p._id);
                           }}

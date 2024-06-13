@@ -488,8 +488,10 @@ const AddOrUpdateModalCars = (props) => {
                   ]}
                 >
                   <Select
+                  style={{height:"500px"}}
                     mode="tags"
-                    size="middle"
+                    size="large"
+                    autoFocus
                     multiple
                     options={[
                       {

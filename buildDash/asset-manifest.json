@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ca2d4e25.css",
+    "main.js": "/static/js/main.75116f72.js",
+    "static/js/787.2ce47df7.chunk.js": "/static/js/787.2ce47df7.chunk.js",
+    "static/media/img-signin.jpg": "/static/media/img-signin.cba9a9729ee14ec1352a.jpg",
+    "static/media/info-card-2.jpg": "/static/media/info-card-2.9a5119d163ea1e152800.jpg",
+    "static/media/info-card-3.jpg": "/static/media/info-card-3.e73b3934a3c41fdb920d.jpg",
+    "static/media/info-card-1.jpg": "/static/media/info-card-1.9dbf753798176896e7b9.jpg",
+    "static/media/team-1.jpg": "/static/media/team-1.c821a2730a9c8e3f68eb.jpg",
+    "static/media/logo_2-removebg-preview.png": "/static/media/logo_2-removebg-preview.6c310cdd5178dc2d49f0.png",
+    "static/media/team-3.jpg": "/static/media/team-3.b75146da5bfdf9d8ae61.jpg",
+    "static/media/team-4.jpg": "/static/media/team-4.a1e1c29f1b839ddae393.jpg",
+    "static/media/team-2.jpg": "/static/media/team-2.e725aef8c892cb21f262.jpg",
+    "static/media/logo-spotify.svg": "/static/media/logo-spotify.94e384ccdc913765a5cb7baf8c2bbf19.svg",
+    "static/media/logo-invision.svg": "/static/media/logo-invision.9914cf42b44071b5326f6ad315a83bba.svg",
+    "static/media/logo-shopify.svg": "/static/media/logo-shopify.98e3f7cf77d4661ce67d796d1158e923.svg",
+    "static/media/logo-jira.svg": "/static/media/logo-jira.a0d2348178d8f7a18e4b5406b3cdccf9.svg",
+    "static/media/logo-slack.svg": "/static/media/logo-slack.cd48b339ddcc336030e0c46b32f4d835.svg",
+    "static/media/logo-atlassian.svg": "/static/media/logo-atlassian.7db5f0ddbe2cfc1d27cb6b81dc560b8f.svg",
+    "index.html": "/index.html",
+    "main.ca2d4e25.css.map": "/static/css/main.ca2d4e25.css.map",
+    "main.75116f72.js.map": "/static/js/main.75116f72.js.map",
+    "787.2ce47df7.chunk.js.map": "/static/js/787.2ce47df7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca2d4e25.css",
+    "static/js/main.75116f72.js"
+  ]
+}

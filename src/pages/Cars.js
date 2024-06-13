@@ -103,7 +103,7 @@ function Cars() {
   const handleTop = async (id) => {
     setisload(true);
     await axios
-      .put(`http://www.primocarthageauto.ca/api/car/top/${id}`, config)
+      .put(`https://www.primocarthageauto.ca/api/car/top/${id}`, config)
       .then(function (response) {
         handrefetech();
         setisload(false);
